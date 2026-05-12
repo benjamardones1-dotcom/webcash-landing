@@ -31,7 +31,7 @@ export default function FinalCTA() {
           </p>
 
           <motion.a
-            href="#precio"
+            href="https://pay.hotmart.com/F105781523K"
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
             className="inline-flex items-center gap-2 px-10 py-5 rounded-xl font-bold text-black bg-[#39FF14] text-xl shadow-[0_0_40px_rgba(57,255,20,0.4)] hover:shadow-[0_0_60px_rgba(57,255,20,0.6)] transition-shadow duration-300"

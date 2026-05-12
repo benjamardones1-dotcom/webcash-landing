@@ -132,7 +132,7 @@ export default function Hero() {
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
           <motion.a
-            href="#precio"
+            href="https://pay.hotmart.com/F105781523K"
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
             className="group relative inline-flex items-center gap-2 px-8 py-4 rounded-xl font-semibold text-black bg-[#39FF14] text-lg shadow-[0_0_30px_rgba(57,255,20,0.3)] hover:shadow-[0_0_50px_rgba(57,255,20,0.5)] transition-shadow duration-300"

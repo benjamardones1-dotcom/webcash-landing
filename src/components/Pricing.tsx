@@ -64,7 +64,7 @@ export default function Pricing() {
             </div>
 
             <motion.a
-              href="#"
+              href="https://pay.hotmart.com/F105781523K"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               className="inline-flex items-center justify-center gap-2 w-full max-w-sm mx-auto px-8 py-4 rounded-xl font-semibold text-black bg-[#39FF14] text-lg shadow-[0_0_30px_rgba(57,255,20,0.3)] hover:shadow-[0_0_50px_rgba(57,255,20,0.5)] transition-shadow duration-300"

@@ -46,7 +46,7 @@ export default function Navbar() {
             </a>
           ))}
           <a
-            href="#precio"
+            href="https://pay.hotmart.com/F105781523K"
             className="px-5 py-2 rounded-lg text-sm font-semibold text-black bg-[#39FF14] hover:bg-[#4dff33] transition-colors"
           >
             Acceder Ahora
@@ -87,7 +87,7 @@ export default function Navbar() {
                 </a>
               ))}
               <a
-                href="#precio"
+                href="https://pay.hotmart.com/F105781523K"
                 onClick={() => setMobileOpen(false)}
                 className="block w-full text-center px-5 py-3 rounded-lg text-sm font-semibold text-black bg-[#39FF14]"
               >
