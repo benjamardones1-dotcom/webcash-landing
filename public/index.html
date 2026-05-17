@@ -7,7 +7,9 @@
 <meta name="description" content="Consultora chilena de desarrollo organizacional con certificación NCh2728. Capacitación, e-learning, gestión por competencias y reclutamiento. Presencia en Santiago, Atacama y Araucanía.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://d8j0ntlcm91z4.cloudfront.net">
+<link rel="dns-prefetch" href="https://www.google.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Organization","name":"Latitud Sur Capacitaciones","url":"https://lats.cl","logo":"banner_lats.jpg","description":"Consultora chilena de desarrollo organizacional certificada NCh2728","address":{"@type":"PostalAddress","streetAddress":"Guardia Vieja 255, Of. 913","addressLocality":"Providencia, Santiago","addressCountry":"CL"},"telephone":"+56222445267","contactPoint":{"@type":"ContactPoint","telephone":"+56932293868","contactType":"sales"}}
 </script>
@@ -15,13 +17,23 @@
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Sus capacitaciones son acreditadas por SENCE?","acceptedAnswer":{"@type":"Answer","text":"Sí. Operamos bajo certificación NCh2728 que nos habilita como OTEC. Nuestros programas son franquiciables vía SENCE."}},{"@type":"Question","name":"¿Cuál es el mínimo de personas para una capacitación in-company?","acceptedAnswer":{"@type":"Answer","text":"Trabajamos con grupos desde 8 personas para asegurar dinámica grupal efectiva."}},{"@type":"Question","name":"¿Atienden empresas fuera de Santiago, Atacama y Araucanía?","acceptedAnswer":{"@type":"Answer","text":"Sí, hemos desarrollado proyectos en todo Chile."}},{"@type":"Question","name":"¿Cuánto demora una propuesta?","acceptedAnswer":{"@type":"Answer","text":"Entregamos propuestas en 3 a 5 días hábiles después del diagnóstico inicial."}},{"@type":"Question","name":"¿Qué incluye el servicio de Gestión por Competencias?","acceptedAnswer":{"@type":"Answer","text":"Levantamiento del modelo, definición de competencias, sistema de evaluación 360° online, brechas y planes de desarrollo."}},{"@type":"Question","name":"¿Hacen formación 100% online?","acceptedAnswer":{"@type":"Answer","text":"Sí. Diseñamos plataformas LMS a medida, cursos elearning con narrativa profesional y reportería."}},{"@type":"Question","name":"¿Tienen catálogo público de cursos?","acceptedAnswer":{"@type":"Answer","text":"Sí, disponible para descarga en PDF con todos los cursos por área."}}]}
 </script>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+/* ─── RESET & GLOBALS ─── */
+*{box-sizing:border-box;margin:0;padding:0;cursor:default}
 html{scroll-behavior:smooth}
 body{font-family:'Inter',system-ui,sans-serif;background:#0c0c0c;color:#fff;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:hidden}
 ::selection{background:rgba(0,120,212,0.4)}
-section{scroll-margin-top:100px;position:relative;z-index:2;contain:layout style}
+section{scroll-margin-top:100px;position:relative;z-index:2;contain:layout style paint;content-visibility:auto;contain-intrinsic-size:800px}
 img{max-width:100%;display:block}
 a{color:inherit}
+
+/* Cursor — surgical */
+a,button,[role="button"],[onclick],.btn-primary,.btn-secondary,.navbar-cta,.navbar-links a,.video-thumbnail,.scroll-hint,summary,label[for],input[type="submit"]{cursor:pointer}
+input[type="text"],input[type="email"],input[type="tel"],textarea{cursor:text}
+[disabled],[aria-disabled="true"]{cursor:not-allowed;opacity:.5}
+
+/* Focus-visible global */
+:focus{outline:none}
+:focus-visible{outline:2px solid #00d2ff;outline-offset:3px;border-radius:4px}
 
 :root{
 --bg:#0c0c0c;
@@ -52,41 +64,60 @@ a{color:inherit}
 @keyframes dotPulse{0%,80%,100%{transform:scale(.5);opacity:.5}40%{transform:scale(1);opacity:1}}
 
 /* ─── SCROLL PROGRESS ─── */
-.scroll-progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,#22C55E,#00d2ff,#F97316);z-index:10000;width:0%;transition:width .1s}
+.scroll-progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,#22C55E,#00d2ff,#F97316);z-index:10000;width:0%;pointer-events:none;will-change:transform}
 
 /* ─── VIDEO BACKGROUND ─── */
 .video-bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-.video-bg video{width:100%;height:100%;object-fit:cover;opacity:.55}
+.video-bg-desktop{width:100%;height:100%;object-fit:cover;opacity:.55}
+.video-bg-mobile{position:absolute;inset:0;background:radial-gradient(ellipse at 20% 30%,rgba(0,120,212,.35),transparent 50%),radial-gradient(ellipse at 80% 70%,rgba(249,115,22,.25),transparent 55%),radial-gradient(ellipse at 50% 50%,rgba(34,197,94,.18),transparent 60%),#0c0c0c;display:none}
 .video-bg-overlay{position:absolute;inset:0;background:radial-gradient(ellipse at top,transparent 0%,rgba(12,12,12,.4) 50%,rgba(12,12,12,.85) 100%),linear-gradient(180deg,rgba(12,12,12,.3) 0%,rgba(12,12,12,.6) 100%)}
+@media(max-width:768px),(prefers-reduced-motion:reduce){
+.video-bg-desktop{display:none}
+.video-bg-mobile{display:block}
+}
 
-/* ─── AURORA OVERLAY ─── */
+/* ─── AURORA OVERLAY (2 blobs for perf) ─── */
 .aurora-overlay{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden;mix-blend-mode:screen}
-.aurora-blob{position:absolute;border-radius:50%;filter:blur(140px);opacity:.25;will-change:transform}
-.blob-green{width:500px;height:500px;background:#22C55E;top:-10%;left:-5%;animation:drift1 35s ease-in-out infinite}
+.aurora-blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.25;will-change:transform}
 .blob-blue{width:600px;height:600px;background:#0078D4;top:40%;right:-10%;animation:drift2 40s ease-in-out infinite}
 .blob-orange{width:450px;height:450px;background:#F97316;bottom:-10%;left:30%;animation:drift3 45s ease-in-out infinite;opacity:.18}
-@keyframes drift1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(300px,400px) scale(1.2)}}
-@keyframes drift2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-400px,200px) scale(1.15)}}
-@keyframes drift3{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(200px,-500px) scale(1.25)}}
+@keyframes drift2{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(-400px,200px,0) scale(1.15)}}
+@keyframes drift3{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(200px,-500px,0) scale(1.25)}}
+@media(max-width:768px){.aurora-overlay{display:none}}
 
 /* ─── GUIDE LINES ─── */
 .guide-line{position:fixed;inset-block:0;width:1px;background:rgba(255,255,255,.06);z-index:3;pointer-events:none;display:none}
 @media(min-width:1024px){.guide-line{display:block}.guide-left{left:calc(50% - 36rem)}.guide-right{left:calc(50% + 36rem)}}
 
 /* ─── LIQUID GLASS ─── */
-.liquid-glass{background:rgba(255,255,255,.02);background-blend-mode:luminosity;backdrop-filter:blur(12px) saturate(1.4);-webkit-backdrop-filter:blur(12px) saturate(1.4);border:none;box-shadow:inset 0 1px 1px rgba(255,255,255,.08),0 20px 60px -20px rgba(0,0,0,.5);position:relative;overflow:hidden;border-radius:20px}
+.liquid-glass{background:rgba(255,255,255,.02);background-blend-mode:luminosity;backdrop-filter:blur(8px) saturate(1.3);-webkit-backdrop-filter:blur(8px) saturate(1.3);border:none;box-shadow:inset 0 1px 1px rgba(255,255,255,.08),0 20px 60px -20px rgba(0,0,0,.5);position:relative;overflow:hidden;border-radius:20px;contain:layout style}
 .liquid-glass::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1.4px;background:linear-gradient(180deg,rgba(255,255,255,.4) 0%,rgba(255,255,255,.12) 20%,rgba(255,255,255,0) 40%,rgba(255,255,255,0) 60%,rgba(255,255,255,.12) 80%,rgba(255,255,255,.4) 100%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
-.liquid-glass:hover{background:rgba(255,255,255,.04);transform:translateY(-4px);transition:all .5s var(--ease-out)}
+
+/* Static card — NO hover transform */
+.liquid-glass.static:hover{transform:none;background:rgba(255,255,255,.02)}
+
+/* Clickable card — hover lift + glow */
+.liquid-glass.clickable{cursor:pointer;transition:transform .4s var(--ease-out),background .4s}
+.liquid-glass.clickable:hover{transform:translateY(-6px);background:rgba(255,255,255,.05)}
+.liquid-glass.clickable:hover::before{background:linear-gradient(180deg,rgba(0,210,255,.6) 0%,rgba(255,255,255,.18) 20%,rgba(255,255,255,0) 40%,rgba(255,255,255,0) 60%,rgba(255,255,255,.18) 80%,rgba(0,210,255,.6) 100%)}
+.liquid-glass.clickable::after{content:'';position:absolute;inset:0;border-radius:inherit;box-shadow:0 30px 60px -20px rgba(0,120,212,.4);opacity:0;transition:opacity .4s;pointer-events:none}
+.liquid-glass.clickable:hover::after{opacity:1}
+.liquid-glass.clickable:active{transform:translateY(-2px) scale(.98);transition-duration:.05s}
+.liquid-glass.clickable:focus-visible{outline:2px solid #00d2ff;outline-offset:4px}
 
 /* ─── NAVBAR ─── */
 .navbar{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:100;width:calc(100% - 32px);max-width:1100px;transition:transform .3s}
-.navbar-inner{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:rgba(12,12,12,.6);backdrop-filter:blur(20px) saturate(1.5);-webkit-backdrop-filter:blur(20px) saturate(1.5);border:1px solid rgba(255,255,255,.08);border-radius:100px;box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.navbar-inner{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:rgba(12,12,12,.6);backdrop-filter:blur(16px) saturate(1.5);-webkit-backdrop-filter:blur(16px) saturate(1.5);border:1px solid rgba(255,255,255,.08);border-radius:100px;box-shadow:0 8px 32px rgba(0,0,0,.4)}
 .navbar-logo img{height:28px;filter:brightness(0) invert(1);display:block}
 .navbar-links{display:flex;gap:28px}
-.navbar-links a{color:rgba(255,255,255,.7);text-decoration:none;font-size:14px;font-weight:500;transition:color .2s}
+.navbar-links a{color:rgba(255,255,255,.7);text-decoration:none;font-size:14px;font-weight:500;position:relative;padding:4px 2px;transition:color .2s}
+.navbar-links a::after{content:'';position:absolute;left:50%;bottom:0;width:0;height:1px;background:linear-gradient(90deg,transparent,#00d2ff,transparent);transition:width .3s,left .3s}
 .navbar-links a:hover{color:#fff}
-.navbar-cta{display:inline-flex;align-items:center;gap:6px;background:#fff;color:#000;padding:8px 18px;border-radius:100px;font-size:13px;font-weight:600;text-decoration:none;transition:all .2s}
-.navbar-cta:hover{background:rgba(255,255,255,.9);transform:scale(.98)}
+.navbar-links a:hover::after{width:100%;left:0}
+.navbar-links a.active{color:#fff}
+.navbar-links a.active::after{width:100%;left:0;background:#00d2ff;box-shadow:0 0 8px #00d2ff}
+.navbar-cta{display:inline-flex;align-items:center;gap:6px;background:#fff;color:#000;padding:8px 18px;border-radius:100px;font-size:13px;font-weight:600;text-decoration:none;transition:all .2s;box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 8px 24px -8px rgba(255,255,255,.2)}
+.navbar-cta:hover{background:rgba(255,255,255,.92);transform:scale(.98)}
 .navbar-cta svg{transition:transform .2s}
 .navbar-cta:hover svg{transform:translateX(2px)}
 .navbar-menu-mobile{display:none;background:none;border:none;color:#fff;font-size:24px;cursor:pointer}
@@ -98,14 +129,14 @@ a{color:inherit}
 /* ─── MOBILE MENU ─── */
 .mobile-menu{position:fixed;inset:0;z-index:99;background:rgba(12,12,12,.95);backdrop-filter:blur(20px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px;opacity:0;visibility:hidden;transition:all .3s}
 .mobile-menu.active{opacity:1;visibility:visible}
-.mobile-menu a{color:#fff;text-decoration:none;font-size:24px;font-weight:600;transition:color .2s}
+.mobile-menu a{color:#fff;text-decoration:none;font-size:24px;font-weight:600;transition:color .2s;cursor:pointer}
 .mobile-menu a:hover{color:var(--lats-cyan)}
 .mobile-menu-close{position:absolute;top:24px;right:24px;background:none;border:none;color:#fff;font-size:32px;cursor:pointer}
 
 /* ─── HERO ─── */
-.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:120px 24px 80px;text-align:center;position:relative}
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:120px 24px 80px;text-align:center;position:relative;content-visibility:visible;contain-intrinsic-size:auto}
 .hero-content{max-width:720px;display:flex;flex-direction:column;align-items:center;gap:24px}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:100px;font-size:12px;color:rgba(255,255,255,.7);backdrop-filter:blur(10px)}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:100px;font-size:12px;color:rgba(255,255,255,.7)}
 .hero-eyebrow .dot{width:6px;height:6px;border-radius:50%;background:#22C55E;box-shadow:0 0 12px #22C55E}
 .hero-title{font-size:clamp(40px,7vw,80px);font-weight:600;line-height:.95;letter-spacing:-.03em;margin:0}
 .rotating-word{display:inline-block;position:relative;min-width:280px;text-align:left;vertical-align:bottom}
@@ -114,45 +145,62 @@ a{color:inherit}
 @keyframes shiny{0%{background-position:-200% center}100%{background-position:200% center}}
 .hero-subtitle{font-size:clamp(15px,1.5vw,17px);color:rgba(255,255,255,.6);max-width:540px;line-height:1.6;margin:8px 0 16px}
 .hero-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
-.btn-primary{display:inline-flex;align-items:center;gap:8px;background:#fff;color:#000;padding:14px 24px;border-radius:100px;font-size:14px;font-weight:600;text-decoration:none;transition:all .2s;position:relative;overflow:hidden}
-.btn-primary:hover{background:rgba(255,255,255,.92);transform:scale(.98)}
-.btn-primary::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);transition:left .6s}
+
+/* ─── T1: PRIMARY BUTTON ─── */
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:#fff;color:#000;padding:14px 24px;border-radius:100px;font-size:14px;font-weight:600;text-decoration:none;position:relative;overflow:hidden;cursor:pointer;transition:transform .2s var(--ease-out),box-shadow .3s,background .2s;box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 8px 24px -8px rgba(255,255,255,.3)}
+.btn-primary:hover{background:#f5f5f5;transform:translateY(-1px);box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 16px 40px -12px rgba(0,210,255,.5),0 0 0 1px rgba(255,255,255,.2)}
+.btn-primary:active{transform:translateY(0) scale(.97);transition-duration:.05s}
+.btn-primary:focus-visible{outline:2px solid #00d2ff;outline-offset:3px}
+.btn-primary svg{transition:transform .2s}
+.btn-primary:hover svg{transform:translateX(3px)}
+.btn-primary::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(0,210,255,.4),transparent);transition:left .6s var(--ease-out);pointer-events:none}
 .btn-primary:hover::after{left:100%}
-.btn-secondary{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.05);color:#fff;padding:14px 24px;border-radius:100px;font-size:14px;font-weight:500;text-decoration:none;border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(10px);transition:all .2s}
-.btn-secondary:hover{background:rgba(255,255,255,.1)}
+
+/* ─── T2: SECONDARY BUTTON ─── */
+.btn-secondary{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.06);color:#fff;padding:14px 24px;border-radius:100px;font-size:14px;font-weight:500;text-decoration:none;border:1px solid rgba(255,255,255,.14);cursor:pointer;position:relative;transition:background .25s,border-color .25s,transform .2s,box-shadow .3s}
+.btn-secondary:hover{background:rgba(255,255,255,.12);border-color:rgba(0,210,255,.45);transform:translateY(-1px);box-shadow:0 8px 24px -8px rgba(0,210,255,.3)}
+.btn-secondary:active{transform:translateY(0) scale(.97);transition-duration:.05s}
+.btn-secondary:focus-visible{outline:2px solid #00d2ff;outline-offset:3px}
+.btn-secondary svg{transition:transform .2s}
+.btn-secondary:hover svg{transform:translateX(2px)}
+
 .hero-footnote{font-size:12px;color:rgba(255,255,255,.4);margin-top:8px}
-.scroll-hint{position:absolute;bottom:40px;left:50%;transform:translateX(-50%)}
+.scroll-hint{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);cursor:pointer;padding:12px;border-radius:100px;transition:background .2s}
+.scroll-hint:hover{background:rgba(255,255,255,.04)}
 .scroll-hint-line{width:1px;height:60px;background:linear-gradient(to bottom,transparent,rgba(255,255,255,.4),transparent);animation:scrollLine 2.5s ease-in-out infinite}
 @keyframes scrollLine{0%{transform:translateY(-20px);opacity:0}50%{opacity:1}100%{transform:translateY(20px);opacity:0}}
 
 /* ─── SECTION UTILITIES ─── */
 .section-inner{max-width:1100px;margin:0 auto;padding:120px 24px;text-align:center}
-.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:100px;font-size:12px;color:rgba(255,255,255,.7);backdrop-filter:blur(10px);margin-bottom:20px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:100px;font-size:12px;color:rgba(255,255,255,.7);margin-bottom:20px}
 .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--lats-cyan);box-shadow:0 0 12px var(--lats-cyan)}
 .section-title{font-size:clamp(32px,5vw,56px);font-weight:600;letter-spacing:-.02em;line-height:1.02;margin-bottom:20px}
 .text-gradient{background:linear-gradient(135deg,#A4F4FD 0%,#00d2ff 50%,#0078D4 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
 .section-subtitle{font-size:16px;color:rgba(255,255,255,.6);max-width:580px;margin:0 auto 60px;line-height:1.6}
+
+/* ─── T3: TEXT LINKS ─── */
+p a,.form-note a,.footer-col a{color:#00d2ff;text-decoration:none;font-weight:500;background-image:linear-gradient(90deg,currentColor,currentColor);background-repeat:no-repeat;background-position:0 100%;background-size:100% 1px;padding-bottom:2px;transition:background-size .3s,color .2s;cursor:pointer}
+p a:hover,.form-note a:hover,.footer-col a:hover{color:#A4F4FD;background-size:100% 2px}
 
 /* ─── MARQUEE ─── */
 .marquee-section{padding:80px 0;position:relative;z-index:2}
 .marquee-title{text-align:center;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:32px}
 .marquee{overflow:hidden;mask-image:linear-gradient(to right,transparent,black 10%,black 90%,transparent);-webkit-mask-image:linear-gradient(to right,transparent,black 10%,black 90%,transparent)}
 .marquee-track{display:flex;gap:64px;width:max-content;animation:marqueeScroll 45s linear infinite;will-change:transform}
-.client{font-size:24px;font-weight:600;color:rgba(255,255,255,.4);white-space:nowrap;letter-spacing:-.02em;transition:color .3s}
-.client:hover{color:rgba(255,255,255,.85)}
+.client{font-size:24px;font-weight:600;color:rgba(255,255,255,.4);white-space:nowrap;letter-spacing:-.02em;cursor:default}
 @keyframes marqueeScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .marquee:hover .marquee-track{animation-play-state:paused}
 
 /* ─── SERVICES ─── */
-.services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:left}
-.service-card{padding:28px;display:flex;flex-direction:column;gap:12px;min-height:240px;transition:all .5s var(--ease-out)}
+.services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:left;contain:layout}
+.service-card{padding:28px;display:flex;flex-direction:column;gap:12px;min-height:240px}
 .service-icon{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,rgba(0,210,255,.15),rgba(0,120,212,.05));display:flex;align-items:center;justify-content:center;color:var(--lats-cyan);margin-bottom:8px}
 .service-icon svg{width:22px;height:22px}
 .service-card h3{font-size:18px;font-weight:600}
 .service-card .tagline{font-size:12px;font-weight:500;color:var(--lats-cyan);margin-top:-4px}
 .service-card p{font-size:14px;color:rgba(255,255,255,.6);line-height:1.5;flex:1}
-.service-link{font-size:13px;color:var(--lats-cyan);text-decoration:none;font-weight:500;transition:gap .3s;display:inline-flex;align-items:center;gap:4px}
-.service-link:hover{gap:8px}
+.service-link{font-size:13px;color:var(--lats-cyan);text-decoration:none;font-weight:500;transition:gap .3s;display:inline-flex;align-items:center;gap:4px;cursor:pointer;position:relative;z-index:6}
+.service-link:hover{gap:8px;color:#A4F4FD}
 @media(max-width:1024px){.services-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:640px){.services-grid{grid-template-columns:1fr}}
 
@@ -166,7 +214,7 @@ a{color:inherit}
 @media(max-width:640px){.why-grid{grid-template-columns:1fr}}
 
 /* ─── MODELO ─── */
-.modelo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;text-align:left;margin-top:60px}
+.modelo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;text-align:left;margin-top:60px;contain:layout}
 .modelo-card{padding:36px 28px;display:flex;flex-direction:column;gap:16px}
 .modelo-number{font-size:48px;font-weight:200;background:linear-gradient(135deg,#00d2ff,#0078D4);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1}
 .modelo-card h3{font-size:22px;font-weight:600}
@@ -185,15 +233,17 @@ a{color:inherit}
 .razon-pillars li{display:flex;align-items:center;gap:16px;padding:14px 18px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:12px;font-size:15px;font-weight:500;transition:all .3s}
 .razon-pillars li:hover{background:rgba(255,255,255,.06);border-color:rgba(0,210,255,.2)}
 .razon-pillars span{font-size:11px;color:var(--lats-cyan);font-weight:600;letter-spacing:1px}
-.lats-neon-mark{width:100%;max-width:420px;aspect-ratio:1;margin:0 auto;filter:drop-shadow(0 0 40px rgba(0,210,255,.3))}
-.lats-ring-svg{width:100%;height:100%;animation:ringRotate 60s linear infinite}
-.streak{animation:streakPulse 4s ease-in-out infinite}
-.streak-green{animation-delay:0s}
-.streak-orange{animation-delay:1.3s}
-.streak-blue{animation-delay:2.6s}
-.lats-ring-svg text{animation:ringRotate 60s linear infinite reverse;transform-origin:300px 300px}
-@keyframes ringRotate{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-@keyframes streakPulse{0%,100%{opacity:.85}50%{opacity:1}}
+
+/* LATS neon ring — fixed circle segments */
+.lats-neon-mark{width:100%;max-width:420px;aspect-ratio:1;margin:0 auto;filter:drop-shadow(0 0 50px rgba(0,210,255,.25))}
+.lats-ring-svg{width:100%;height:100%;animation:ringSpin 50s linear infinite;will-change:transform}
+.ring-segment{animation:segmentPulse 3.5s ease-in-out infinite}
+.ring-green{animation-delay:0s}
+.ring-orange{animation-delay:1.2s}
+.ring-blue{animation-delay:2.4s}
+.lats-ring-svg text{animation:ringSpin 50s linear infinite reverse;transform-origin:300px 300px}
+@keyframes ringSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes segmentPulse{0%,100%{opacity:.9;stroke-width:6}50%{opacity:1;stroke-width:8}}
 @media(max-width:1024px){.razon-grid{grid-template-columns:1fr;gap:60px}}
 
 /* ─── CASES ─── */
@@ -205,7 +255,8 @@ a{color:inherit}
 .case-card h3{font-size:18px;font-weight:600;line-height:1.3}
 .case-card p{font-size:14px;color:rgba(255,255,255,.6);line-height:1.6;flex:1}
 .case-metric{font-size:13px;font-weight:700;color:var(--lats-cyan);padding:6px 10px;background:rgba(0,210,255,.06);border-radius:8px;align-self:flex-start}
-.case-link{font-size:13px;color:var(--lats-cyan);text-decoration:none;font-weight:500}
+.case-link{font-size:13px;color:var(--lats-cyan);text-decoration:none;font-weight:500;cursor:pointer;transition:gap .2s,color .2s;display:inline-flex;align-items:center;gap:4px;position:relative;z-index:6}
+.case-link:hover{gap:8px;color:#A4F4FD}
 @media(max-width:1024px){.cases-grid{grid-template-columns:1fr}}
 
 /* ─── TESTIMONIALS ─── */
@@ -244,28 +295,32 @@ a{color:inherit}
 .cobertura-stats>div{display:flex;flex-direction:column;gap:4px}
 .cobertura-stats strong{font-size:32px;font-weight:700;background:linear-gradient(135deg,#00d2ff,#0078D4);-webkit-background-clip:text;background-clip:text;color:transparent}
 .cobertura-stats span{font-size:12px;color:var(--text-faint)}
-.cobertura-map{padding:32px;display:flex;justify-content:center}
-.chile-map-container{position:relative;width:100%;max-width:300px}
-.chile-map-container img{width:100%;height:auto;filter:drop-shadow(0 0 20px rgba(0,210,255,.2));opacity:.85}
-.map-marker{position:absolute;display:flex;align-items:center;gap:8px}
-.map-marker-dot{width:14px;height:14px;border-radius:50%;position:relative;display:flex;align-items:center;justify-content:center}
-.map-marker-dot::before{content:'';position:absolute;inset:-4px;border-radius:50%;border:2px solid;opacity:.5;animation:markerPulse 2s ease-out infinite}
-.map-marker-dot::after{content:'';width:6px;height:6px;border-radius:50%;background:#fff}
-.map-marker-label{font-size:11px;font-weight:600;color:#fff;white-space:nowrap;letter-spacing:.5px}
-@keyframes markerPulse{0%{transform:scale(1);opacity:.5}100%{transform:scale(2);opacity:0}}
-.marker-atacama{top:22%;left:55%}.marker-atacama .map-marker-dot{background:var(--lats-orange)}.marker-atacama .map-marker-dot::before{border-color:var(--lats-orange)}
-.marker-santiago{top:42%;left:58%}.marker-santiago .map-marker-dot{background:var(--lats-cyan);width:18px;height:18px}.marker-santiago .map-marker-dot::before{border-color:var(--lats-cyan);inset:-5px}
-.marker-araucania{top:62%;left:52%}.marker-araucania .map-marker-dot{background:var(--lats-green)}.marker-araucania .map-marker-dot::before{border-color:var(--lats-green)}
+
+/* Chile Map frame */
+.cobertura-map{padding:32px;display:flex;justify-content:center;align-items:center;min-height:580px}
+.chile-map-frame{position:relative;width:100%;max-width:320px;aspect-ratio:0.45/1}
+.chile-img{width:100%;height:100%;object-fit:contain;filter:brightness(0) invert(1) drop-shadow(0 0 30px rgba(0,210,255,.3));opacity:.75}
+.region-marker{position:absolute;transform:translate(-50%,-50%);display:flex;align-items:center;gap:12px;z-index:2}
+.region-dot{position:relative;width:14px;height:14px;border-radius:50%;flex-shrink:0;box-shadow:0 0 16px currentColor}
+.region-dot.orange{background:#F97316;color:#F97316}
+.region-dot.cyan{background:#00d2ff;color:#00d2ff}
+.region-dot.green{background:#22C55E;color:#22C55E}
+.region-marker.featured .region-dot{width:18px;height:18px}
+.dot-pulse{position:absolute;inset:-6px;border-radius:50%;border:2px solid currentColor;animation:pulseRing 2s ease-out infinite;pointer-events:none}
+@keyframes pulseRing{0%{transform:scale(.8);opacity:1}100%{transform:scale(2.2);opacity:0}}
+.region-label{display:flex;flex-direction:column;gap:2px;white-space:nowrap;background:rgba(12,12,12,.7);padding:6px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.08)}
+.region-label strong{font-size:13px;font-weight:600;color:#fff}
+.region-label span{font-size:10px;color:rgba(255,255,255,.5);letter-spacing:.3px}
+
 .region-cards{display:flex;flex-direction:column;gap:16px;margin-top:32px}
-.region-card{display:grid;grid-template-columns:180px 1fr;overflow:hidden;transition:all .4s var(--ease-out)}
-.region-card:hover{transform:translateX(8px)}
+.region-card{display:grid;grid-template-columns:180px 1fr;overflow:hidden}
 .region-card img{width:100%;height:100%;object-fit:cover;min-height:160px}
 .region-body{padding:20px}
 .region-eyebrow{font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--lats-cyan)}
 .region-card h3{font-size:18px;font-weight:600;margin:4px 0 8px}
 .region-card p{font-size:13px;line-height:1.6;color:rgba(255,255,255,.6);margin:0 0 8px}
 .region-location{font-size:12px;color:var(--text-faint)}
-@media(max-width:1024px){.cobertura-inner{grid-template-columns:1fr}}
+@media(max-width:1024px){.cobertura-inner{grid-template-columns:1fr}.chile-map-frame{max-width:220px}.region-label strong{font-size:11px}.region-label span{font-size:9px}}
 @media(max-width:700px){.region-card{grid-template-columns:1fr}.region-card img{min-height:140px}}
 
 /* ─── VIDEO SECTION ─── */
@@ -296,8 +351,9 @@ a{color:inherit}
 .cta-content{position:relative;z-index:1;max-width:720px;margin:0 auto}
 .cta-section h2{font-size:clamp(36px,5vw,56px);font-weight:700;margin:16px 0;line-height:1.1;letter-spacing:-.02em}
 .cta-section p{color:rgba(255,255,255,.6);font-size:18px;line-height:1.65;margin-bottom:32px}
-.btn-whatsapp{display:inline-flex;align-items:center;gap:8px;background:#25D366;color:#fff;padding:14px 24px;border-radius:100px;font-size:14px;font-weight:600;text-decoration:none;transition:all .2s;box-shadow:0 4px 14px rgba(37,211,102,.35)}
+.btn-whatsapp{display:inline-flex;align-items:center;gap:8px;background:#25D366;color:#fff;padding:14px 24px;border-radius:100px;font-size:14px;font-weight:600;text-decoration:none;transition:all .2s;box-shadow:0 4px 14px rgba(37,211,102,.35);cursor:pointer}
 .btn-whatsapp:hover{background:#1DAA52;transform:translateY(-2px);box-shadow:0 10px 28px rgba(37,211,102,.5)}
+.btn-whatsapp:active{transform:translateY(0) scale(.97)}
 
 /* ─── CONTACT ─── */
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;text-align:left}
@@ -307,14 +363,16 @@ a{color:inherit}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 @media(max-width:600px){.form-row{grid-template-columns:1fr}}
 .form-field{position:relative}
-.form-field input,.form-field textarea{width:100%;padding:22px 16px 10px;border:1px solid rgba(255,255,255,.12);border-radius:12px;font-family:'Inter',sans-serif;font-size:15px;background:rgba(255,255,255,.04);color:#fff;transition:all .3s;resize:vertical}
-.form-field input:focus,.form-field textarea:focus{outline:none;border-color:var(--lats-cyan);box-shadow:0 0 0 4px rgba(0,210,255,.1)}
+.form-field input,.form-field textarea{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:22px 16px 10px;color:#fff;font-size:14px;font-family:inherit;transition:border-color .2s,background .2s,box-shadow .2s;resize:vertical}
+.form-field input::placeholder,.form-field textarea::placeholder{color:rgba(255,255,255,.3)}
+.form-field input:hover,.form-field textarea:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.18)}
+.form-field input:focus,.form-field textarea:focus{outline:none;background:rgba(255,255,255,.08);border-color:#00d2ff;box-shadow:0 0 0 3px rgba(0,210,255,.15)}
 .form-field label{position:absolute;left:16px;top:16px;color:var(--text-faint);font-size:14px;pointer-events:none;transition:all .2s var(--ease-out);transform-origin:left top}
 .form-field input:focus+label,.form-field input:not(:placeholder-shown)+label,.form-field textarea:focus+label,.form-field textarea:not(:placeholder-shown)+label{transform:translateY(-10px) scale(.78);color:var(--lats-cyan)}
 .form-note{font-size:13px;color:var(--text-faint);margin-top:8px}
-.form-note a{color:var(--lats-cyan);text-decoration:none}
-.btn-submit{display:inline-flex;align-items:center;gap:8px;background:#fff;color:#000;padding:14px 24px;border-radius:100px;font-size:14px;font-weight:600;border:none;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif}
-.btn-submit:hover{background:rgba(255,255,255,.9);transform:scale(.98)}
+.btn-submit{display:inline-flex;align-items:center;gap:8px;background:#fff;color:#000;padding:14px 24px;border-radius:100px;font-size:14px;font-weight:600;border:none;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif;box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 8px 24px -8px rgba(255,255,255,.3)}
+.btn-submit:hover{background:#f5f5f5;transform:translateY(-1px);box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 16px 40px -12px rgba(0,210,255,.5)}
+.btn-submit:active{transform:translateY(0) scale(.97)}
 .contact-info{display:flex;flex-direction:column;gap:16px}
 .contact-info>div{display:flex;flex-direction:column;gap:2px}
 .contact-info strong{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-faint)}
@@ -331,15 +389,12 @@ a{color:inherit}
 .footer-col{display:flex;flex-direction:column;gap:10px}
 .footer-col h4{font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:rgba(255,255,255,.4);margin-bottom:8px}
 .footer-col p{font-size:13px;color:rgba(255,255,255,.55);line-height:1.6}
-.footer-col a,.footer-col span{font-size:13px;color:rgba(255,255,255,.7);text-decoration:none}
-.footer-col a:hover{color:var(--lats-cyan)}
+.footer-col span{font-size:13px;color:rgba(255,255,255,.7)}
 .footer-badge{font-size:11px;padding:4px 10px;background:rgba(0,210,255,.08);border:1px solid rgba(0,210,255,.2);border-radius:100px;color:var(--lats-cyan);align-self:flex-start;margin-top:8px}
 .footer-social{display:flex;gap:8px;margin-top:8px}
-.footer-social a{width:36px;height:36px;background:rgba(255,255,255,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.5);transition:all .3s}
+.footer-social a{width:36px;height:36px;background:rgba(255,255,255,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.5);transition:all .3s;cursor:pointer}
 .footer-social a:hover{background:var(--lats-blue);color:#fff;transform:translateY(-2px)}
 .footer-bottom{margin-top:60px;padding-top:24px;border-top:1px solid rgba(255,255,255,.06);display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,.4);flex-wrap:wrap;gap:12px}
-.footer-bottom a{color:rgba(255,255,255,.4);text-decoration:none}
-.footer-bottom a:hover{color:#fff}
 @media(max-width:768px){
 .footer-grid{grid-template-columns:1fr 1fr;gap:40px}
 .footer-bottom{flex-direction:column;text-align:center}
@@ -347,10 +402,10 @@ a{color:inherit}
 @media(max-width:480px){.footer-grid{grid-template-columns:1fr}}
 
 /* ─── WHATSAPP FLOAT ─── */
-.wa-float{position:fixed;bottom:24px;right:24px;width:60px;height:60px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 32px rgba(37,211,102,.4);z-index:9998;transition:transform .3s;opacity:0;transform:scale(0) translateY(20px);text-decoration:none}
+.wa-float{position:fixed;bottom:24px;right:24px;width:60px;height:60px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 32px rgba(37,211,102,.4);z-index:9998;transition:transform .3s;opacity:0;transform:scale(0) translateY(20px);text-decoration:none;cursor:pointer}
 .wa-float.visible{opacity:1;transform:scale(1) translateY(0)}
 .wa-float:hover{transform:scale(1.1);box-shadow:0 16px 40px rgba(37,211,102,.55)}
-.wa-pulse{position:absolute;inset:0;border-radius:50%;border:2px solid #25D366;animation:waPulse 2s ease-out infinite}
+.wa-pulse{position:absolute;inset:0;border-radius:50%;border:2px solid #25D366;animation:waPulse 2s ease-out infinite;pointer-events:none}
 @keyframes waPulse{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.6);opacity:0}}
 
 /* ─── SCROLL REVEAL ─── */
@@ -367,13 +422,15 @@ a{color:inherit}
 
 /* ─── REDUCED MOTION ─── */
 @media(prefers-reduced-motion:reduce){
-.aurora-blob,.video-bg video,.marquee-track,.lats-ring-svg,.lats-ring-svg text,.streak,.scroll-hint-line,.wa-pulse,.preloader-dots span{animation:none!important}
+.aurora-blob,.video-bg-desktop,.marquee-track,.lats-ring-svg,.lats-ring-svg text,.ring-segment,.scroll-hint-line,.wa-pulse,.preloader-dots span,.dot-pulse{animation:none!important}
 .reveal,.reveal-stagger>*{opacity:1;transform:none;transition:none}
+.video-bg-desktop{display:none}
+.video-bg-mobile{display:block}
 }
 
 /* ─── MOBILE BLUR PERF ─── */
 @media(max-width:768px){
-.liquid-glass,.navbar-inner{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(15,15,15,.85)}
+.liquid-glass,.navbar-inner,.video-modal,.region-label,.hero-eyebrow,.eyebrow{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background:rgba(20,20,20,.88)}
 }
 </style>
 </head>
@@ -382,7 +439,7 @@ a{color:inherit}
 <!-- PRELOADER -->
 <div class="preloader" id="preloader">
   <div class="preloader-inner">
-    <img src="banner_lats.jpg" alt="LATS" width="160">
+    <img src="banner_lats.jpg" alt="LATS" width="160" height="48" fetchpriority="high" decoding="async">
     <div class="preloader-dots"><span></span><span></span><span></span></div>
   </div>
 </div>
@@ -392,16 +449,16 @@ a{color:inherit}
 
 <!-- VIDEO BG -->
 <div class="video-bg" aria-hidden="true">
-  <video autoplay loop muted playsinline preload="metadata"
+  <video class="video-bg-desktop" autoplay loop muted playsinline preload="none"
     poster="https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=1920&q=20&auto=format&blur=50">
     <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_105406_16f4600d-7a92-4292-b96e-b19156c7830a.mp4" type="video/mp4">
   </video>
+  <div class="video-bg-mobile"></div>
   <div class="video-bg-overlay"></div>
 </div>
 
-<!-- AURORA OVERLAY -->
+<!-- AURORA OVERLAY (2 blobs for performance) -->
 <div class="aurora-overlay" aria-hidden="true">
-  <div class="aurora-blob blob-green"></div>
   <div class="aurora-blob blob-blue"></div>
   <div class="aurora-blob blob-orange"></div>
 </div>
@@ -413,7 +470,7 @@ a{color:inherit}
 <!-- NAVBAR -->
 <nav class="navbar" id="navbar">
   <div class="navbar-inner">
-    <a href="#" class="navbar-logo"><img src="banner_lats.jpg" alt="LATS"></a>
+    <a href="#" class="navbar-logo"><img src="banner_lats.jpg" alt="LATS" width="120" height="28" fetchpriority="high" decoding="async"></a>
     <div class="navbar-links">
       <a href="#servicios">Servicios</a>
       <a href="#nosotros">Nosotros</a>
@@ -492,56 +549,56 @@ a{color:inherit}
     <p class="section-subtitle reveal">Soluciones modulares e integrables, diseñadas para empresas que entienden que el desarrollo organizacional es una inversión, no un gasto.</p>
 
     <div class="services-grid reveal-stagger">
-      <article class="service-card liquid-glass">
+      <article class="service-card liquid-glass clickable">
         <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
         <span class="tagline">Programas a la medida de tu organización.</span>
         <h3>Capacitación Empresarial</h3>
         <p>Cursos diseñados para capacitar a ejecutivos y operarios en los diferentes aspectos de la vida organizacional. Levantamiento de necesidades, programa de conocimiento, desarrollo, implementación y seguimiento.</p>
         <a href="#contacto" class="service-link">Conocer más →</a>
       </article>
-      <article class="service-card liquid-glass">
+      <article class="service-card liquid-glass clickable">
         <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg></div>
         <span class="tagline">Formación on-line integrada a tu estrategia.</span>
         <h3>E-Learning</h3>
         <p>Programas de formación integrados en la estructura organizativa. Modelos de capacitación de última generación para entornos distribuidos, con transmisión eficiente de contenidos y recursos de evaluación adaptativa.</p>
         <a href="#contacto" class="service-link">Conocer más →</a>
       </article>
-      <article class="service-card liquid-glass">
+      <article class="service-card liquid-glass clickable">
         <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
         <span class="tagline">Alinea tu capital humano con tu plan estratégico.</span>
         <h3>Gestión por Competencias</h3>
         <p>Establecemos un lenguaje común en RRHH para gestionar capacidades, conocimientos y habilidades. Incluye assessment online, perfiles de cargo, evaluación de desempeño 360°, planes de desarrollo y capacitación por competencias.</p>
         <a href="#contacto" class="service-link">Conocer más →</a>
       </article>
-      <article class="service-card liquid-glass">
+      <article class="service-card liquid-glass clickable">
         <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" x2="16.65" y1="21" y2="16.65"/></svg></div>
         <span class="tagline">Encuentra al profesional correcto.</span>
         <h3>Reclutamiento y Selección</h3>
         <p>Asesoría completa en reclutamiento con elaboración de perfil psicolaboral. Evaluamos competencias específicas y transversales del cargo, incluyendo aplicación de test psicológicos con respaldo profesional.</p>
         <a href="#contacto" class="service-link">Conocer más →</a>
       </article>
-      <article class="service-card liquid-glass">
+      <article class="service-card liquid-glass clickable">
         <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg></div>
         <span class="tagline">Tres áreas, decenas de cursos disponibles.</span>
         <h3>Catálogo de Cursos</h3>
         <p>Área Técnica Operativa, Calidad y Procesos, y Gestión de Personas. Cursos sobre liderazgo, comunicación, herramientas industriales, software de gestión, Office y certificaciones de calidad nacional e internacional.</p>
         <a href="https://lats.cl/Catalogo_de_Cursos.pdf" target="_blank" rel="noopener" class="service-link">Descargar catálogo PDF →</a>
       </article>
-      <article class="service-card liquid-glass">
+      <article class="service-card liquid-glass clickable">
         <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg></div>
         <span class="tagline">Comprende las tendencias de comportamiento.</span>
         <h3>Test On-Line / DiSC</h3>
         <p>Everything DiSC clasifica el comportamiento laboral en cuatro tendencias: Dominante, Influyente, Concienzudo y Estable. Aplicable a desarrollo ejecutivo, selección, ventas, trabajo en equipo, liderazgo, coaching y gestión del cambio.</p>
         <a href="https://www.discchile.cl" target="_blank" rel="noopener" class="service-link">Visitar DiSC Chile →</a>
       </article>
-      <article class="service-card liquid-glass">
+      <article class="service-card liquid-glass clickable">
         <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect width="15" height="14" x="1" y="5" rx="2" ry="2"/></svg></div>
         <span class="tagline">Aprendizaje audiovisual y lúdico.</span>
         <h3>Capacitación Multimedia</h3>
         <p>Experiencias de capacitación visualmente atractivas con gráficas, animaciones, videos, locución e interlocutores. Ideal para inducción corporativa y capacitación en procesos productivos.</p>
         <a href="#contacto" class="service-link">Conocer más →</a>
       </article>
-      <article class="service-card liquid-glass">
+      <article class="service-card liquid-glass clickable">
         <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
         <span class="tagline">Construye identidad e influencia.</span>
         <h3>Comunicación Corporativa</h3>
@@ -559,22 +616,22 @@ a{color:inherit}
     <h2 class="section-title reveal">Diferenciadores que <span class="text-gradient">importan.</span></h2>
     <p class="section-subtitle reveal">No somos una consultora más. Esto es lo que nos distingue en el mercado chileno.</p>
     <div class="why-grid reveal-stagger">
-      <div class="why-card liquid-glass">
+      <div class="why-card liquid-glass static">
         <div class="why-num">01</div>
         <h3>Certificación NCh2728</h3>
         <p>Operamos bajo norma de calidad chilena de organismos técnicos de capacitación. Garantía de procesos estandarizados y resultados verificables.</p>
       </div>
-      <div class="why-card liquid-glass">
+      <div class="why-card liquid-glass static">
         <div class="why-num">02</div>
         <h3>Presencia regional propia</h3>
         <p>Oficinas en Santiago, Atacama y Araucanía con equipos locales. Entendemos cada realidad productiva: minería, industria, servicios.</p>
       </div>
-      <div class="why-card liquid-glass">
+      <div class="why-card liquid-glass static">
         <div class="why-num">03</div>
         <h3>Enfoque integral</h3>
         <p>Tres ejes integrados: consultoría, capacitación y multimedia. No solo entregamos cursos: acompañamos procesos completos de cambio.</p>
       </div>
-      <div class="why-card liquid-glass">
+      <div class="why-card liquid-glass static">
         <div class="why-num">04</div>
         <h3>Resultados medibles</h3>
         <p>Evaluaciones 360°, KPIs de desempeño, brechas cuantificadas. Cada proyecto incluye métricas claras de impacto organizacional.</p>
@@ -589,7 +646,7 @@ a{color:inherit}
     <span class="eyebrow"><span class="dot"></span> Modelo de servicio</span>
     <h2 class="section-title reveal">Tres ejes.<br><span class="text-gradient">Un sistema completo.</span></h2>
     <div class="modelo-grid reveal-stagger">
-      <article class="modelo-card liquid-glass">
+      <article class="modelo-card liquid-glass static">
         <div class="modelo-number">01</div>
         <h3>Diagnóstico</h3>
         <p>Evaluamos el estado actual con entrevistas, encuestas de clima, análisis de competencias y revisión de procesos. Sin diagnóstico no hay solución real.</p>
@@ -599,7 +656,7 @@ a{color:inherit}
           <li>Análisis de cultura organizacional</li>
         </ul>
       </article>
-      <article class="modelo-card liquid-glass">
+      <article class="modelo-card liquid-glass static">
         <div class="modelo-number">02</div>
         <h3>Intervención</h3>
         <p>Diseñamos e implementamos programas a medida con metodologías mixtas (presencial, e-learning, coaching individual) según el perfil del equipo y los objetivos.</p>
@@ -609,7 +666,7 @@ a{color:inherit}
           <li>Talleres experienciales</li>
         </ul>
       </article>
-      <article class="modelo-card liquid-glass">
+      <article class="modelo-card liquid-glass static">
         <div class="modelo-number">03</div>
         <h3>Medición</h3>
         <p>Lo que no se mide no mejora. Reportes de impacto, evaluaciones de desempeño post-intervención, y ajustes continuos basados en datos reales.</p>
@@ -645,38 +702,21 @@ a{color:inherit}
         <div class="lats-neon-mark">
           <svg viewBox="0 0 600 600" class="lats-ring-svg">
             <defs>
-              <filter id="strongGlow" x="-50%" y="-50%" width="200%" height="200%">
-                <feGaussianBlur stdDeviation="6" result="blur1"/>
-                <feGaussianBlur in="SourceGraphic" stdDeviation="14" result="blur2"/>
-                <feMerge><feMergeNode in="blur2"/><feMergeNode in="blur1"/><feMergeNode in="SourceGraphic"/></feMerge>
+              <filter id="ringGlow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="8" result="b1"/>
+                <feGaussianBlur in="SourceGraphic" stdDeviation="16" result="b2"/>
+                <feMerge><feMergeNode in="b2"/><feMergeNode in="b1"/><feMergeNode in="SourceGraphic"/></feMerge>
               </filter>
               <filter id="textGlow" x="-50%" y="-50%" width="200%" height="200%">
-                <feGaussianBlur stdDeviation="3" result="blur"/>
-                <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                <feGaussianBlur stdDeviation="3"/>
+                <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
               </filter>
-              <linearGradient id="greenStreak" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#22C55E" stop-opacity="0"/>
-                <stop offset="40%" stop-color="#22C55E" stop-opacity="1"/>
-                <stop offset="100%" stop-color="#A4F4FD" stop-opacity="0.5"/>
-              </linearGradient>
-              <linearGradient id="blueStreak" x1="0%" y1="100%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#0078D4" stop-opacity="0"/>
-                <stop offset="50%" stop-color="#00d2ff" stop-opacity="1"/>
-                <stop offset="100%" stop-color="#0078D4" stop-opacity="0.3"/>
-              </linearGradient>
-              <linearGradient id="orangeStreak" x1="100%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#F97316" stop-opacity="0"/>
-                <stop offset="50%" stop-color="#F97316" stop-opacity="1"/>
-                <stop offset="100%" stop-color="#DC2626" stop-opacity="0.4"/>
-              </linearGradient>
             </defs>
-            <path d="M 150 200 A 200 200 0 0 1 450 200" stroke="url(#greenStreak)" stroke-width="8" fill="none" stroke-linecap="round" filter="url(#strongGlow)" class="streak streak-green"/>
-            <path d="M 170 210 A 180 180 0 0 1 430 210" stroke="#22C55E" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.9"/>
-            <path d="M 470 220 A 200 200 0 0 1 470 380" stroke="url(#orangeStreak)" stroke-width="8" fill="none" stroke-linecap="round" filter="url(#strongGlow)" class="streak streak-orange"/>
-            <path d="M 460 230 A 180 180 0 0 1 460 370" stroke="#F97316" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.9"/>
-            <path d="M 450 400 A 200 200 0 1 1 150 200" stroke="url(#blueStreak)" stroke-width="8" fill="none" stroke-linecap="round" filter="url(#strongGlow)" class="streak streak-blue"/>
-            <path d="M 440 390 A 180 180 0 1 1 160 210" stroke="#00d2ff" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.85"/>
-            <text x="300" y="320" text-anchor="middle" font-family="'Inter',sans-serif" font-weight="700" font-size="84" letter-spacing="6" fill="#fff" filter="url(#textGlow)">LATS</text>
+            <circle cx="300" cy="300" r="180" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="3"/>
+            <circle cx="300" cy="300" r="180" fill="none" stroke="#22C55E" stroke-width="6" stroke-linecap="round" pathLength="100" stroke-dasharray="34 66" stroke-dashoffset="0" transform="rotate(-90 300 300)" filter="url(#ringGlow)" class="ring-segment ring-green"/>
+            <circle cx="300" cy="300" r="180" fill="none" stroke="#F97316" stroke-width="6" stroke-linecap="round" pathLength="100" stroke-dasharray="34 66" stroke-dashoffset="-33.33" transform="rotate(-90 300 300)" filter="url(#ringGlow)" class="ring-segment ring-orange"/>
+            <circle cx="300" cy="300" r="180" fill="none" stroke="#00d2ff" stroke-width="6" stroke-linecap="round" pathLength="100" stroke-dasharray="34 66" stroke-dashoffset="-66.67" transform="rotate(-90 300 300)" filter="url(#ringGlow)" class="ring-segment ring-blue"/>
+            <text x="300" y="325" text-anchor="middle" font-family="'Inter',sans-serif" font-weight="700" font-size="84" letter-spacing="6" fill="#fff" filter="url(#textGlow)">LATS</text>
           </svg>
         </div>
       </div>
@@ -689,7 +729,7 @@ a{color:inherit}
   <div class="section-inner">
     <span class="eyebrow"><span class="dot"></span> Quiénes somos</span>
     <h2 class="section-title reveal">Conoce LATS en <span class="text-gradient">90 segundos.</span></h2>
-    <div class="video-thumbnail liquid-glass reveal" onclick="openVideoModal()">
+    <div class="video-thumbnail liquid-glass clickable reveal" onclick="openVideoModal()">
       <div class="video-poster"></div>
       <button class="video-play" aria-label="Reproducir video">
         <svg width="32" height="32" viewBox="0 0 24 24" fill="#000"><path d="M8 5v14l11-7z"/></svg>
@@ -704,8 +744,8 @@ a{color:inherit}
     <span class="eyebrow"><span class="dot"></span> Casos de éxito</span>
     <h2 class="section-title reveal">Resultados que <span class="text-gradient">respaldan nuestro trabajo.</span></h2>
     <div class="cases-grid reveal-stagger">
-      <article class="case-card liquid-glass">
-        <img src="https://picsum.photos/seed/piamonte/800/500" alt="Sistema de Gestión por Competencias en Piamonte" loading="lazy" decoding="async">
+      <article class="case-card liquid-glass clickable">
+        <img src="https://picsum.photos/seed/piamonte/800/500" alt="Sistema de Gestión por Competencias en Piamonte" loading="lazy" decoding="async" width="800" height="500">
         <div class="case-body">
           <span class="case-tag">Gestión por Competencias</span>
           <h3>Sistema de Gestión por Competencias en Piamonte</h3>
@@ -714,8 +754,8 @@ a{color:inherit}
           <a href="https://wa.me/56932293868?text=Hola%2C%20me%20interesa%20conocer%20m%C3%A1s%20sobre%20el%20caso%20Piamonte." target="_blank" rel="noopener" class="case-link">Conversar este caso →</a>
         </div>
       </article>
-      <article class="case-card liquid-glass">
-        <img src="https://picsum.photos/seed/asimca/800/500" alt="Convenio de Colaboración con ASIMCA" loading="lazy" decoding="async">
+      <article class="case-card liquid-glass clickable">
+        <img src="https://picsum.photos/seed/asimca/800/500" alt="Convenio de Colaboración con ASIMCA" loading="lazy" decoding="async" width="800" height="500">
         <div class="case-body">
           <span class="case-tag">Alianza Estratégica</span>
           <h3>Convenio de Colaboración con ASIMCA</h3>
@@ -724,8 +764,8 @@ a{color:inherit}
           <a href="https://wa.me/56932293868?text=Hola%2C%20me%20interesa%20conocer%20m%C3%A1s%20sobre%20el%20caso%20ASIMCA." target="_blank" rel="noopener" class="case-link">Conversar este caso →</a>
         </div>
       </article>
-      <article class="case-card liquid-glass">
-        <img src="https://picsum.photos/seed/capmineria/800/500" alt="Curso Modelos de Fundición en CAP Minería" loading="lazy" decoding="async">
+      <article class="case-card liquid-glass clickable">
+        <img src="https://picsum.photos/seed/capmineria/800/500" alt="Curso Modelos de Fundición en CAP Minería" loading="lazy" decoding="async" width="800" height="500">
         <div class="case-body">
           <span class="case-tag">Capacitación Técnica</span>
           <h3>Curso Modelos de Fundición en CAP Minería</h3>
@@ -745,24 +785,24 @@ a{color:inherit}
     <h2 class="section-title reveal">Lo que dicen <span class="text-gradient">nuestros clientes.</span></h2>
     <div class="testimonial-carousel reveal" id="testimonialCarousel">
       <div class="testimonial-track">
-        <div class="testimonial active liquid-glass">
+        <div class="testimonial active liquid-glass static">
           <div class="testimonial-quote">El acompañamiento de LATS fue clave para implementar nuestro sistema de evaluación por competencias. El equipo entendió nuestras necesidades específicas y entregó resultados medibles.</div>
           <div class="testimonial-author">
-            <img src="https://picsum.photos/seed/piamonte-mgr/120/120" alt="" loading="lazy" decoding="async">
+            <img src="https://picsum.photos/seed/piamonte-mgr/120/120" alt="" loading="lazy" decoding="async" width="48" height="48">
             <div><div class="ta-name">Gerente de RRHH</div><div class="ta-role">Piamonte S.A.</div></div>
           </div>
         </div>
-        <div class="testimonial liquid-glass">
+        <div class="testimonial liquid-glass static">
           <div class="testimonial-quote">La capacitación técnica en CAP Minería superó nuestras expectativas. LATS Atacama entiende la realidad del sector minero y eso se nota en cada sesión.</div>
           <div class="testimonial-author">
-            <img src="https://picsum.photos/seed/cap-mgr/120/120" alt="" loading="lazy" decoding="async">
+            <img src="https://picsum.photos/seed/cap-mgr/120/120" alt="" loading="lazy" decoding="async" width="48" height="48">
             <div><div class="ta-name">Jefe de Operaciones</div><div class="ta-role">CAP Minería — Huasco</div></div>
           </div>
         </div>
-        <div class="testimonial liquid-glass">
+        <div class="testimonial liquid-glass static">
           <div class="testimonial-quote">Como gremio, valoramos la cercanía y compromiso de LATS Araucanía. Han contribuido significativamente al desarrollo del capital humano de nuestras empresas asociadas.</div>
           <div class="testimonial-author">
-            <img src="https://picsum.photos/seed/asimca-mgr/120/120" alt="" loading="lazy" decoding="async">
+            <img src="https://picsum.photos/seed/asimca-mgr/120/120" alt="" loading="lazy" decoding="async" width="48" height="48">
             <div><div class="ta-name">Directiva ASIMCA</div><div class="ta-role">Asociación Gremial — Malleco y Cautín</div></div>
           </div>
         </div>
@@ -817,8 +857,8 @@ a{color:inherit}
           <div><strong>+200</strong><span>empresas atendidas</span></div>
         </div>
         <div class="region-cards" style="margin-top:32px">
-          <div class="region-card liquid-glass">
-            <img src="Atacama.jpg" alt="Sucursal LATS Atacama - Copiapó" loading="lazy" decoding="async">
+          <div class="region-card liquid-glass static">
+            <img src="Atacama.jpg" alt="Sucursal LATS Atacama - Copiapó" loading="lazy" decoding="async" width="180" height="160">
             <div class="region-body">
               <span class="region-eyebrow">Sucursal Norte</span>
               <h3>Latitud Sur Atacama</h3>
@@ -826,8 +866,8 @@ a{color:inherit}
               <span class="region-location">Copiapó, Región de Atacama</span>
             </div>
           </div>
-          <div class="region-card liquid-glass">
-            <img src="araucania.jpg" alt="Sucursal LATS Araucanía - Temuco" loading="lazy" decoding="async">
+          <div class="region-card liquid-glass static">
+            <img src="araucania.jpg" alt="Sucursal LATS Araucanía - Temuco" loading="lazy" decoding="async" width="180" height="160">
             <div class="region-body">
               <span class="region-eyebrow">Sucursal Sur</span>
               <h3>Latitud Sur Araucanía</h3>
@@ -837,20 +877,20 @@ a{color:inherit}
           </div>
         </div>
       </div>
-      <div class="cobertura-map liquid-glass reveal">
-        <div class="chile-map-container">
-          <img src="chile-map.avif" alt="Mapa de Chile con ubicaciones LATS" loading="lazy" decoding="async">
-          <div class="map-marker marker-atacama">
-            <div class="map-marker-dot"></div>
-            <span class="map-marker-label">Atacama</span>
+      <div class="cobertura-map liquid-glass static reveal">
+        <div class="chile-map-frame">
+          <img src="chile-map.avif" alt="Mapa de Chile" class="chile-img" loading="lazy" decoding="async">
+          <div class="region-marker" style="top:21%;left:58%">
+            <div class="region-dot orange"><span class="dot-pulse"></span></div>
+            <div class="region-label"><strong>Atacama</strong><span>Sucursal Copiapó</span></div>
           </div>
-          <div class="map-marker marker-santiago">
-            <div class="map-marker-dot"></div>
-            <span class="map-marker-label">Santiago · Matriz</span>
+          <div class="region-marker featured" style="top:38%;left:56%">
+            <div class="region-dot cyan"><span class="dot-pulse"></span></div>
+            <div class="region-label"><strong>Santiago</strong><span>Casa matriz</span></div>
           </div>
-          <div class="map-marker marker-araucania">
-            <div class="map-marker-dot"></div>
-            <span class="map-marker-label">Araucanía</span>
+          <div class="region-marker" style="top:56%;left:54%">
+            <div class="region-dot green"><span class="dot-pulse"></span></div>
+            <div class="region-label"><strong>Araucanía</strong><span>Sucursal Temuco</span></div>
           </div>
         </div>
       </div>
@@ -935,7 +975,7 @@ a{color:inherit}
         </form>
       </div>
       <aside class="reveal">
-        <div class="contact-map-wrap liquid-glass">
+        <div class="contact-map-wrap liquid-glass static">
           <iframe src="https://www.google.com/maps?q=Guardia+Vieja+255,+Providencia,+Santiago,+Chile&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Oficina LATS — Guardia Vieja 255, Providencia"></iframe>
         </div>
         <div class="contact-info">
@@ -955,7 +995,7 @@ a{color:inherit}
   <div class="footer-inner">
     <div class="footer-grid">
       <div class="footer-col">
-        <img src="banner_lats.jpg" alt="LATS" style="filter:brightness(0) invert(1);height:32px;margin-bottom:16px">
+        <img src="banner_lats.jpg" alt="LATS" style="filter:brightness(0) invert(1);height:32px;margin-bottom:16px" width="120" height="32" decoding="async">
         <p>Consultora de desarrollo organizacional. Generamos valor a través de las personas.</p>
         <span class="footer-badge">Certificación NCh2728 · OTEC SENCE</span>
         <div class="footer-social">
@@ -1010,56 +1050,92 @@ a{color:inherit}
 
 <script>
 /* ─── PRELOADER ─── */
-window.addEventListener('load',()=>{setTimeout(()=>document.getElementById('preloader').classList.add('hidden'),1200)});
+window.addEventListener('load',function(){setTimeout(function(){document.getElementById('preloader').classList.add('hidden')},1200)});
 
-/* ─── SCROLL PROGRESS ─── */
-window.addEventListener('scroll',()=>{const p=(window.pageYOffset/(document.documentElement.scrollHeight-window.innerHeight))*100;document.getElementById('scrollProgress').style.width=p+'%'},{passive:true});
+/* ─── SCROLL PROGRESS (rAF throttled) ─── */
+var scrollTicking=false;
+var scrollProgress=document.getElementById('scrollProgress');
+window.addEventListener('scroll',function(){
+  if(!scrollTicking){requestAnimationFrame(function(){var p=(window.pageYOffset/(document.documentElement.scrollHeight-window.innerHeight))*100;scrollProgress.style.width=p+'%';scrollTicking=false});scrollTicking=true}
+},{passive:true});
 
-/* ─── NAVBAR HIDE/SHOW ─── */
-let lastScroll=0;const nav=document.getElementById('navbar');
-window.addEventListener('scroll',()=>{const c=window.pageYOffset;if(c>lastScroll&&c>100)nav.style.transform='translate(-50%,-120%)';else nav.style.transform='translate(-50%,0)';lastScroll=c},{passive:true});
+/* ─── NAVBAR HIDE/SHOW (rAF throttled) ─── */
+var navTicking=false,lastScroll=0;
+var nav=document.getElementById('navbar');
+window.addEventListener('scroll',function(){
+  if(!navTicking){requestAnimationFrame(function(){var curr=window.pageYOffset;nav.style.transform=(curr>lastScroll&&curr>100)?'translate(-50%,-120%)':'translate(-50%,0)';lastScroll=curr;navTicking=false});navTicking=true}
+},{passive:true});
+
+/* ─── SCROLLSPY ─── */
+var sections=document.querySelectorAll('section[id]');
+var navLinks=document.querySelectorAll('.navbar-links a');
+var spyObs=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){var id=entry.target.id;navLinks.forEach(function(a){a.classList.toggle('active',a.getAttribute('href')==='#'+id)})}})},{rootMargin:'-40% 0px -50% 0px'});
+sections.forEach(function(s){spyObs.observe(s)});
 
 /* ─── MOBILE MENU ─── */
-document.getElementById('menuOpen').addEventListener('click',()=>document.getElementById('mobileMenu').classList.add('active'));
+document.getElementById('menuOpen').addEventListener('click',function(){document.getElementById('mobileMenu').classList.add('active')});
 document.getElementById('menuClose').addEventListener('click',closeMobileMenu);
 function closeMobileMenu(){document.getElementById('mobileMenu').classList.remove('active')}
 
-/* ─── ROTATING WORD ─── */
-const words=document.querySelectorAll('.rotating-word .word');let wordIdx=0;
-setInterval(()=>{words[wordIdx].classList.remove('active');wordIdx=(wordIdx+1)%words.length;words[wordIdx].classList.add('active')},3000);
+/* ─── ROTATING WORD (rAF loop) ─── */
+var words=document.querySelectorAll('.rotating-word .word');
+var wordIdx=0,lastChange=performance.now();
+function rotateLoop(now){if(now-lastChange>=3000){words[wordIdx].classList.remove('active');wordIdx=(wordIdx+1)%words.length;words[wordIdx].classList.add('active');lastChange=now}requestAnimationFrame(rotateLoop)}
+requestAnimationFrame(rotateLoop);
 
 /* ─── SCROLL REVEAL ─── */
-const revealObs=new IntersectionObserver((entries)=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');revealObs.unobserve(entry.target)}})},{threshold:0.15,rootMargin:'0px 0px -80px 0px'});
-document.querySelectorAll('.reveal,.reveal-stagger').forEach(el=>revealObs.observe(el));
+var revealObs=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.add('visible');revealObs.unobserve(entry.target)}})},{threshold:0.15,rootMargin:'0px 0px -80px 0px'});
+document.querySelectorAll('.reveal,.reveal-stagger').forEach(function(el){revealObs.observe(el)});
 
 /* ─── COUNTER ANIMATION ─── */
-function animateCounter(el){const target=parseInt(el.dataset.target);const duration=1800;const start=performance.now();const tick=(now)=>{const p=Math.min((now-start)/duration,1);const eased=1-Math.pow(1-p,3);el.textContent=Math.floor(target*eased);if(p<1)requestAnimationFrame(tick);else el.textContent=target};requestAnimationFrame(tick)}
-const counterObs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){animateCounter(e.target);counterObs.unobserve(e.target)}})},{threshold:0.5});
-document.querySelectorAll('.counter').forEach(c=>counterObs.observe(c));
+function animateCounter(el){var target=parseInt(el.dataset.target);var duration=1800;var start=performance.now();function tick(now){var p=Math.min((now-start)/duration,1);var eased=1-Math.pow(1-p,3);el.textContent=Math.floor(target*eased);if(p<1)requestAnimationFrame(tick);else el.textContent=target}requestAnimationFrame(tick)}
+var counterObs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){animateCounter(e.target);counterObs.unobserve(e.target)}})},{threshold:0.5});
+document.querySelectorAll('.counter').forEach(function(c){counterObs.observe(c)});
 
 /* ─── TESTIMONIAL CAROUSEL ─── */
-let ti=0;const tCards=document.querySelectorAll('.testimonial');const tDots=document.querySelectorAll('.tdot');
-function showT(i){tCards.forEach((c,j)=>c.classList.toggle('active',j===i));tDots.forEach((d,j)=>d.classList.toggle('active',j===i));ti=i}
-tDots.forEach(d=>d.addEventListener('click',()=>showT(parseInt(d.dataset.i))));
-let tInterval=setInterval(()=>showT((ti+1)%tCards.length),7000);
-const carousel=document.getElementById('testimonialCarousel');
-carousel.addEventListener('mouseenter',()=>clearInterval(tInterval));
-carousel.addEventListener('mouseleave',()=>{tInterval=setInterval(()=>showT((ti+1)%tCards.length),7000)});
+var ti=0;var tCards=document.querySelectorAll('.testimonial');var tDots=document.querySelectorAll('.tdot');
+function showT(i){tCards.forEach(function(c,j){c.classList.toggle('active',j===i)});tDots.forEach(function(d,j){d.classList.toggle('active',j===i)});ti=i}
+tDots.forEach(function(d){d.addEventListener('click',function(){showT(parseInt(d.dataset.i))})});
+var tInterval=setInterval(function(){showT((ti+1)%tCards.length)},7000);
+var carousel=document.getElementById('testimonialCarousel');
+carousel.addEventListener('mouseenter',function(){clearInterval(tInterval)});
+carousel.addEventListener('mouseleave',function(){tInterval=setInterval(function(){showT((ti+1)%tCards.length)},7000)});
 
 /* ─── VIDEO MODAL ─── */
-function openVideoModal(){const m=document.getElementById('videoModal');document.getElementById('vimeoIframe').src='https://player.vimeo.com/video/104329248?autoplay=1';m.classList.add('active');document.body.style.overflow='hidden'}
-function closeVideoModal(e){if(e&&e.target.closest('iframe'))return;const m=document.getElementById('videoModal');m.classList.remove('active');document.getElementById('vimeoIframe').src='';document.body.style.overflow=''}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeVideoModal()});
+function openVideoModal(){var m=document.getElementById('videoModal');document.getElementById('vimeoIframe').src='https://player.vimeo.com/video/104329248?autoplay=1';m.classList.add('active');document.body.style.overflow='hidden'}
+function closeVideoModal(e){if(e&&e.target.closest&&e.target.closest('iframe'))return;var m=document.getElementById('videoModal');m.classList.remove('active');document.getElementById('vimeoIframe').src='';document.body.style.overflow=''}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeVideoModal()});
 
 /* ─── CONTACT FORM → WHATSAPP ─── */
-function sendContact(e){e.preventDefault();const n=document.getElementById('cf-nombre').value;const em=document.getElementById('cf-email').value;const c=document.getElementById('cf-empresa').value;const t=document.getElementById('cf-tel').value;const m=document.getElementById('cf-mensaje').value;const text=`Hola, mi nombre es ${n}${c?' de '+c:''}. ${m}${em?' · Email: '+em:''}${t?' · Tel: '+t:''}`;window.open(`https://wa.me/56932293868?text=${encodeURIComponent(text)}`,'_blank')}
+function sendContact(e){e.preventDefault();var n=document.getElementById('cf-nombre').value;var em=document.getElementById('cf-email').value;var c=document.getElementById('cf-empresa').value;var t=document.getElementById('cf-tel').value;var m=document.getElementById('cf-mensaje').value;var text='Hola, mi nombre es '+n+(c?' de '+c:'')+'. '+m+(em?' · Email: '+em:'')+(t?' · Tel: '+t:'');window.open('https://wa.me/56932293868?text='+encodeURIComponent(text),'_blank')}
+
+/* ─── SCROLL HINT CLICK ─── */
+var scrollHint=document.querySelector('.scroll-hint');
+if(scrollHint){scrollHint.addEventListener('click',function(){var s=document.querySelector('#servicios');if(s)s.scrollIntoView({behavior:'smooth'})})}
 
 /* ─── WHATSAPP FLOAT ─── */
-setTimeout(()=>document.getElementById('waFloat').classList.add('visible'),2000);
+setTimeout(function(){document.getElementById('waFloat').classList.add('visible')},2000);
 
-/* ─── VIDEO BG PAUSE WHEN OFF-SCREEN ─── */
-const bgVideo=document.querySelector('.video-bg video');
-if(bgVideo){const videoObs=new IntersectionObserver(([e])=>{e.isIntersecting?bgVideo.play():bgVideo.pause()});videoObs.observe(document.querySelector('.video-bg'))}
+/* ─── VIDEO BG — PAUSE OFF-SCREEN + TAB HIDDEN ─── */
+var bgVideo=document.querySelector('.video-bg-desktop');
+if(bgVideo){
+  var bgContainer=document.querySelector('.video-bg');
+  var videoObserver=new IntersectionObserver(function(entries){
+    if(entries[0].isIntersecting){bgVideo.play().catch(function(){})}else{bgVideo.pause()}
+  },{threshold:0});
+  videoObserver.observe(bgContainer);
+  document.addEventListener('visibilitychange',function(){
+    if(document.hidden){bgVideo.pause()}else{bgVideo.play().catch(function(){})}
+  });
+}
+
+/* ─── SAVE-DATA: Remove video on slow connections ─── */
+var conn=navigator.connection;
+if(conn&&(conn.saveData||conn.effectiveType==='2g'||conn.effectiveType==='slow-2g')){
+  if(bgVideo)bgVideo.remove();
+  var mobileBg=document.querySelector('.video-bg-mobile');
+  if(mobileBg)mobileBg.style.display='block';
+}
 </script>
 </body>
 </html>
